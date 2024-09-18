@@ -62,6 +62,21 @@ class TaskService {
       });
     });
   }
+
+   /*
+  * Set task with given id as done.
+  */
+   setDone(id: number, done: boolean): Promise<RowDataPacket[]> {
+    return new Promise<RowDataPacket[]>((resolve, reject) => {
+      pool.query('UPDATE Tasks SET done = ? WHERE id = ?', 
+        [done, id], 
+        (error, results: RowDataPacket[]) => {
+        error && reject(error);
+        resolve(results); 
+      }
+    );
+    });
+  }
 }
 
 const taskService = new TaskService();

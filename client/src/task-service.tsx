@@ -33,6 +33,14 @@ class TaskService {
       .post<{ id: number }>('/tasks', { title: title })
       .then((response) => response.data.id);
   }
+
+  delete(id: number) {
+    return axios.delete<void>('/tasks/' + id);
+  }
+
+  setDone(id: number, done: boolean) {
+    return axios.put<void>('/tasks/' + id + '/done', { done: done });
+  }
 }
 
 const taskService = new TaskService();

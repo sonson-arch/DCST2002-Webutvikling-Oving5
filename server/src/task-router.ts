@@ -40,4 +40,17 @@ router.delete('/tasks/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+router.put('/tasks/:id/done', (request, response) => {
+  const id = Number(request.params.id);
+  const done = request.body.done;
+  if (typeof done === 'boolean') {
+    taskService
+      .setDone(id, done)
+      .then(() => response.send())
+      .catch((error) => response.status(500).send(error));
+  } else {
+    response.status(400).send('Invalid request body');
+  }
+});
+
 export default router;
